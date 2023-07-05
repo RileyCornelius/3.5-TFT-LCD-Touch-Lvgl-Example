@@ -141,6 +141,7 @@ static void touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
     }
 }
 
+#if BUTTON_SUPPORT
 static void buttons_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
 {
     static SimpleButton button_next(BUTTON_NEXT);
@@ -170,6 +171,7 @@ static void buttons_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
         data->state = LV_INDEV_STATE_RELEASED;
     }
 }
+#endif
 
 void lvgl_init()
 {
@@ -223,6 +225,12 @@ void lvgl_init()
 
 void lvgl_handler()
 {
-    lv_task_handler();
-    delay(5);
+    const uint16_t period = 5;
+    static uint32_t last_tick = 0;
+    uint32_t tick = millis();
+    if (tick - last_tick > period)
+    {
+        last_tick = tick;
+        lv_task_handler();
+    }
 }

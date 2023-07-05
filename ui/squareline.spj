@@ -930,7 +930,7 @@
                 "flags": 17,
                 "strtype": "OBJECT/Position",
                 "intarray": [
-                  2,
+                  0,
                   31
                 ],
                 "InheritedType": 7
@@ -1169,6 +1169,136 @@
                 "strtype": "BUTTON/Style_main",
                 "strval": "lv.PART.MAIN, Rectangle, Pad, Text ",
                 "InheritedType": 11
+              },
+              {
+                "disabled": false,
+                "nid": -2003057619,
+                "strtype": "BUTTON/EventHandler",
+                "strval": "PRESSED",
+                "childs": [
+                  {
+                    "nid": 1203358701,
+                    "strtype": "_custom/name",
+                    "strval": "Event2",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": -701266083,
+                    "strtype": "_custom/condition_C",
+                    "strval": "",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": -234537968,
+                    "strtype": "_custom/condition_P",
+                    "strval": "",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": -1225824574,
+                    "strtype": "_custom/action",
+                    "strval": "SET OPACITY",
+                    "childs": [
+                      {
+                        "nid": 1439400026,
+                        "strtype": "SET OPACITY/Name",
+                        "strval": "SET OPACITY",
+                        "InheritedType": 10
+                      },
+                      {
+                        "nid": 570237486,
+                        "strtype": "SET OPACITY/Call",
+                        "strval": "set_opacity( <{Target}>, <{Value}>)",
+                        "InheritedType": 10
+                      },
+                      {
+                        "nid": 1563244816,
+                        "strtype": "SET OPACITY/CallC",
+                        "strval": "_ui_opacity_set( <{Target}>, <{Value}>);",
+                        "InheritedType": 10
+                      },
+                      {
+                        "nid": 1517437970,
+                        "strtype": "SET OPACITY/Target",
+                        "strval": "GUID77780513-112557S2942186",
+                        "InheritedType": 9
+                      },
+                      {
+                        "nid": -2092943951,
+                        "strtype": "SET OPACITY/Value",
+                        "integer": 100,
+                        "InheritedType": 6
+                      }
+                    ],
+                    "InheritedType": 10
+                  }
+                ],
+                "InheritedType": 4
+              },
+              {
+                "disabled": false,
+                "nid": 204083285,
+                "strtype": "BUTTON/EventHandler",
+                "strval": "RELEASED",
+                "childs": [
+                  {
+                    "nid": -902399870,
+                    "strtype": "_custom/name",
+                    "strval": "Event3",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": 917107527,
+                    "strtype": "_custom/condition_C",
+                    "strval": "",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": 428504924,
+                    "strtype": "_custom/condition_P",
+                    "strval": "",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": -1555909205,
+                    "strtype": "_custom/action",
+                    "strval": "SET OPACITY",
+                    "childs": [
+                      {
+                        "nid": 564695578,
+                        "strtype": "SET OPACITY/Name",
+                        "strval": "SET OPACITY",
+                        "InheritedType": 10
+                      },
+                      {
+                        "nid": 1428272351,
+                        "strtype": "SET OPACITY/Call",
+                        "strval": "set_opacity( <{Target}>, <{Value}>)",
+                        "InheritedType": 10
+                      },
+                      {
+                        "nid": -1856832644,
+                        "strtype": "SET OPACITY/CallC",
+                        "strval": "_ui_opacity_set( <{Target}>, <{Value}>);",
+                        "InheritedType": 10
+                      },
+                      {
+                        "nid": -1926765210,
+                        "strtype": "SET OPACITY/Target",
+                        "strval": "GUID77780513-112557S2942186",
+                        "InheritedType": 9
+                      },
+                      {
+                        "nid": 493116430,
+                        "strtype": "SET OPACITY/Value",
+                        "integer": 255,
+                        "InheritedType": 6
+                      }
+                    ],
+                    "InheritedType": 10
+                  }
+                ],
+                "InheritedType": 4
               }
             ],
             "saved_objtypeKey": "BUTTON"
@@ -1488,7 +1618,7 @@
                 "flags": 17,
                 "strtype": "OBJECT/Position",
                 "intarray": [
-                  5,
+                  0,
                   129
                 ],
                 "InheritedType": 7
@@ -1716,6 +1846,71 @@
                 "strtype": "BUTTON/Style_main",
                 "strval": "lv.PART.MAIN, Rectangle, Pad, Text ",
                 "InheritedType": 11
+              },
+              {
+                "disabled": false,
+                "nid": -1545906451,
+                "strtype": "BUTTON/EventHandler",
+                "strval": "CLICKED",
+                "childs": [
+                  {
+                    "nid": 1733697725,
+                    "strtype": "_custom/name",
+                    "strval": "Event1",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": -466889042,
+                    "strtype": "_custom/condition_C",
+                    "strval": "",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": -331772091,
+                    "strtype": "_custom/condition_P",
+                    "strval": "",
+                    "InheritedType": 10
+                  },
+                  {
+                    "nid": -328332633,
+                    "strtype": "_custom/action",
+                    "strval": "CALL FUNCTION",
+                    "childs": [
+                      {
+                        "nid": -895796199,
+                        "strtype": "CALL FUNCTION/Name",
+                        "strval": "CALL FUNCTION",
+                        "InheritedType": 10
+                      },
+                      {
+                        "nid": 1652505236,
+                        "strtype": "CALL FUNCTION/Call",
+                        "strval": "<{Function_name}>( event_struct )",
+                        "InheritedType": 10
+                      },
+                      {
+                        "nid": 1115384230,
+                        "strtype": "CALL FUNCTION/CallC",
+                        "strval": "<{Function_name}>( e );",
+                        "InheritedType": 10
+                      },
+                      {
+                        "nid": 1123001485,
+                        "strtype": "CALL FUNCTION/Function_name",
+                        "strval": "button_pressed",
+                        "InheritedType": 10
+                      },
+                      {
+                        "nid": 679529840,
+                        "strtype": "CALL FUNCTION/Dont_export_function",
+                        "strval": "True",
+                        "InheritedType": 2
+                      }
+                    ],
+                    "InheritedType": 10
+                  }
+                ],
+                "InheritedType": 4
               }
             ],
             "saved_objtypeKey": "BUTTON"
@@ -1960,7 +2155,7 @@
     "theme_color2": 0,
     "exportFolderPath": "C:\\Projects\\01-Current\\Heat-Master-Phase-2\\Firmware\\TFT_ILI9488\\src\\ui",
     "projectExportFolderPath": "C:\\Projects\\01-Current\\Heat-Master-Phase-2\\Firmware\\TFT_ILI9488\\ui\\project\\squareline",
-    "backup_cnt": 5,
+    "backup_cnt": 18,
     "autosave_cnt": 0,
     "lvgl_version": "8.3.6",
     "callfuncsexport": "DONT_EXPORT",

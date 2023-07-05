@@ -13,8 +13,10 @@ void ui_Screen1_screen_init(void);
 lv_obj_t * ui_Screen1;
 lv_obj_t * ui_time_label;
 lv_obj_t * ui_date_label;
+void ui_event_logo_button(lv_event_t * e);
 lv_obj_t * ui_logo_button;
 lv_obj_t * ui_logo_image;
+void ui_event_count_button(lv_event_t * e);
 lv_obj_t * ui_count_button;
 lv_obj_t * ui_count_label;
 lv_obj_t * ui____initial_actions0;
@@ -30,6 +32,25 @@ lv_obj_t * ui____initial_actions0;
 ///////////////////// ANIMATIONS ////////////////////
 
 ///////////////////// FUNCTIONS ////////////////////
+void ui_event_logo_button(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_PRESSED) {
+        _ui_opacity_set(ui_logo_image, 100);
+    }
+    if(event_code == LV_EVENT_RELEASED) {
+        _ui_opacity_set(ui_logo_image, 255);
+    }
+}
+void ui_event_count_button(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        button_pressed(e);
+    }
+}
 
 ///////////////////// SCREENS ////////////////////
 
