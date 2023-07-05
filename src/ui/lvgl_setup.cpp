@@ -3,38 +3,13 @@
 #include <lvgl.h>
 #define LGFX_USE_V1 // Define before #include <LovyanGFX.hpp>
 #include <LovyanGFX.hpp>
+#include "pin_config.h"
 #include "lvgl_setup.h"
 
 #define LCD_WIDTH 320
 #define LCD_HEIGHT 480
 
-#if CONFIG_IDF_TARGET_ESP32
-#define LCD_MOSI 23
-#define LCD_MISO 19
-#define LCD_SCK 18
-#define LCD_CS 5
-#define LCD_RST 10
-#define LCD_DC 9
-#define LCD_BL 21
-#define TS_MOSI LCD_MOSI
-#define TS_MISO LCD_MISO
-#define TS_SCK LCD_SCK
-#define TS_CS 22
-#endif
-
-#if CONFIG_IDF_TARGET_ESP32S3
-#define LCD_MOSI 7
-#define LCD_MISO 4
-#define LCD_SCK 6
-#define LCD_CS 5
-#define LCD_RST 17
-#define LCD_DC 16
-#define LCD_BL 18
-#define TS_MOSI LCD_MOSI
-#define TS_MISO LCD_MISO
-#define TS_SCK LCD_SCK
-#define TS_CS 15
-#endif
+#define BUTTON_SUPPORT 1
 
 /***************************************************************************************************
  * LGFX Setup
@@ -168,9 +143,9 @@ static void touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
 
 static void buttons_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
 {
-    static SimpleButton button_next(42);
-    static SimpleButton button_prev(40);
-    static SimpleButton button_enter(41);
+    static SimpleButton button_next(BUTTON_NEXT);
+    static SimpleButton button_prev(BUTTON_PREV);
+    static SimpleButton button_enter(BUTTON_ENTER);
 
     if (button_next.pressed())
     {
@@ -231,6 +206,7 @@ void lvgl_init()
     indev_drv.read_cb = touchpad_read;
     lv_indev_drv_register(&indev_drv);
 
+#if BUTTON_SUPPORT
     /*Initialize the keypad device driver*/
     static lv_indev_drv_t indev_drv_2;
     lv_indev_drv_init(&indev_drv_2);
@@ -240,6 +216,7 @@ void lvgl_init()
     lv_group_t *g = lv_group_create();
     lv_group_set_default(g);
     lv_indev_set_group(indev, g);
+#endif
 
     Serial.printf("Lvgl v%d.%d.%d initialized\n", lv_version_major(), lv_version_minor(), lv_version_patch());
 }
