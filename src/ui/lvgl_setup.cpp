@@ -9,7 +9,7 @@
 #define LCD_WIDTH 320
 #define LCD_HEIGHT 480
 
-#define BUTTON_SUPPORT 1
+#define BUTTON_SUPPORT 0
 
 /***************************************************************************************************
  * LGFX Setup
