@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <SimpleButton.h>
 #include <lvgl.h>
-#define LGFX_USE_V1 // Define before <LovyanGFX.hpp> include
+#define LGFX_USE_V1 // Define before #include <LovyanGFX.hpp>
 #include <LovyanGFX.hpp>
 
 #define LCD_WIDTH 320
