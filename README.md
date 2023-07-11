@@ -6,4 +6,4 @@ Example project using LVGL, LGFX, PlatformIO, Square Line and Arduino framework 
 - Capacitive Touch Driver: FT6236
 
 ## Wiring
-![wiring](https://i.imgur.com/n8RB2yC.png)
+![wiring](https://i.imgur.com/TLsgZMu.png)
