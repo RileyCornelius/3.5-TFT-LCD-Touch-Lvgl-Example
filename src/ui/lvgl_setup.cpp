@@ -1,15 +1,13 @@
 #define LGFX_USE_V1 // Define before #include <LovyanGFX.hpp>
 #include <LovyanGFX.hpp>
 #include <Arduino.h>
-#include <SimpleButton.h>
 #include <lvgl.h>
-#include <FT6236.h>
+#include <SimpleButton.h>
 #include "pin_config.h"
 #include "lvgl_setup.h"
 
 #define LCD_WIDTH 320
 #define LCD_HEIGHT 480
-#define TS_THRESHOLD 150
 
 #define BUTTON_SUPPORT 0
 
@@ -22,7 +20,7 @@ class LGFX : public lgfx::LGFX_Device
     lgfx::Panel_ILI9488 _panel_instance;
     lgfx::Bus_SPI _bus_instance;
     lgfx::Light_PWM _light_instance;
-    // lgfx::Touch_FT5x06 _touch_instance; // FT5206, FT5306, FT5406, FT6206, FT6236, FT6336, FT6436
+    lgfx::Touch_FT5x06 _touch_instance; // FT5206, FT5306, FT5406, FT6206, FT6236, FT6336, FT6436
 
 public:
     LGFX(void)
@@ -69,37 +67,36 @@ public:
 
         {                                        // バックライト制御の設定を行います。（必要なければ削除）
             auto cfg = _light_instance.config(); // バックライト設定用の構造体を取得します。
-
-            cfg.pin_bl = LCD_BL; // バックライトが接続されているピン番号
-            cfg.invert = false;  // バックライトの輝度を反転させる場合 true
-            cfg.freq = 44100;    // バックライトのPWM周波数
-            cfg.pwm_channel = 7; // 使用するPWMのチャンネル番号
+            cfg.pin_bl = LCD_BL;                 // バックライトが接続されているピン番号
+            cfg.invert = false;                  // バックライトの輝度を反転させる場合 true
+            cfg.freq = 44100;                    // バックライトのPWM周波数
+            cfg.pwm_channel = 7;                 // 使用するPWMのチャンネル番号
 
             _light_instance.config(cfg);
             _panel_instance.setLight(&_light_instance); // バックライトをパネルにセットします。
         }
 
-        // {
-        //     auto cfg = _touch_instance.config();
-        //     cfg.i2c_port = 1;
-        //     cfg.i2c_addr = 0x38; // FT6236 (ChipID 0x36)
-        //     cfg.pin_sda = TS_SDA;
-        //     cfg.pin_scl = TS_SCL;
-        //     cfg.freq = 400000;
-        //     cfg.x_min = 0;
-        //     cfg.x_max = LCD_WIDTH;
-        //     cfg.y_min = 0;
-        //     cfg.y_max = LCD_HEIGHT;
+        {
+            auto cfg = _touch_instance.config();
+            cfg.i2c_port = 1;
+            cfg.i2c_addr = 0x38; // FT6236 (ChipID 0x38)
+            cfg.pin_sda = TS_SDA;
+            cfg.pin_scl = TS_SCL;
+            cfg.freq = 400000;
+            cfg.x_min = 0;
+            cfg.x_max = LCD_WIDTH - 1;
+            cfg.y_min = 0;
+            cfg.y_max = LCD_HEIGHT - 1;
 
-        //     _touch_instance.config(cfg);
-        //     _panel_instance.setTouch(&_touch_instance);
-        // }
+            _touch_instance.config(cfg);
+            _panel_instance.setTouch(&_touch_instance);
+        }
+
         setPanel(&_panel_instance); // 使用するパネルをセットします。
     }
 };
 
 LGFX tft;
-FT6236 ts = FT6236();
 
 /***************************************************************************************************
  * LVGL Setup
@@ -123,30 +120,14 @@ static void display_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t
 /*Read the touchpad*/
 static void touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
 {
-    // uint16_t touchX, touchY;
-    // bool touched = tft.getTouch(&touchX, &touchY);
-    // if (!touched)
-    // {
-    //     data->state = LV_INDEV_STATE_REL;
-    // }
-    // else
-    // {
-    //     data->state = LV_INDEV_STATE_PR;
-
-    //     /*Set the coordinates*/
-    //     data->point.x = touchX;
-    //     data->point.y = touchY;
-
-    //     // Serial.println("X = " + String(touchX) + " Y = " + String(touchY));
-    // }
-
-    if (ts.touched())
+    uint16_t touchX, touchY;
+    bool touched = tft.getTouch(&touchX, &touchY);
+    if (touched)
     {
         data->state = LV_INDEV_STATE_PR;
-        TS_Point p = ts.getPoint();
-        data->point.x = p.y;
-        data->point.y = p.x;
-        Serial.println("X = " + String(p.x) + " Y = " + String(p.y));
+        data->point.x = touchX;
+        data->point.y = touchY;
+        // Serial.println("X = " + String(touchX) + " Y = " + String(touchY));
     }
     else
     {
@@ -192,11 +173,6 @@ void lvgl_init()
     tft.begin();
     tft.setBrightness(255);
     tft.setRotation(3);
-
-    if (!ts.begin(TS_THRESHOLD, TS_SDA, TS_SCL))
-    {
-        Serial.println("Unable to start the capacitive touchscreen.");
-    }
 
     /*Calibrate touch screen*/
     // uint16_t calData[] = {239, 3926, 233, 265, 3856, 3896, 3714, 308};
