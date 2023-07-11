@@ -18,26 +18,27 @@
 class LGFX : public lgfx::LGFX_Device
 {
     lgfx::Panel_ILI9488 _panel_instance;
-    lgfx::Bus_SPI _bus_instance;
+    lgfx::Bus_Parallel8 _bus_instance;
     lgfx::Light_PWM _light_instance;
-    lgfx::Touch_FT5x06 _touch_instance; // FT5206, FT5306, FT5406, FT6206, FT6236, FT6336, FT6436
+    lgfx::Touch_FT5x06 _touch_instance; // FT6236
 
 public:
     LGFX(void)
     {
-        {                                           // バス制御の設定を行います。
+        {
             auto cfg = _bus_instance.config();      // バス設定用の構造体を取得します。
-            cfg.spi_host = SPI3_HOST;               // 使用するSPIを選択  (VSPI_HOST or HSPI_HOST)
-            cfg.spi_mode = 0;                       // SPI通信モードを設定 (0 ~ 3)
-            cfg.freq_write = 40000000;              // 送信時のSPIクロック (最大80MHz, 80MHzを整数で割った値に丸められます)
-            cfg.freq_read = 16000000;               // 受信時のSPIクロック
-            cfg.spi_3wire = false;                  // 受信をMOSIピンで行う場合はtrueを設定
-            cfg.use_lock = true;                    // トランザクションロックを使用する場合はtrueを設定
-            cfg.dma_channel = 1;                    // Set the DMA channel (1 or 2. 0=disable)   使用するDMAチャンネルを設定 (0=DMA不使用)
-            cfg.pin_sclk = LCD_SCK;                 // SPIのSCLKピン番号を設定
-            cfg.pin_mosi = LCD_MOSI;                // SPIのMOSIピン番号を設定
-            cfg.pin_miso = LCD_MISO;                // SPIのMISOピン番号を設定 (-1 = disable)
-            cfg.pin_dc = LCD_DC;                    // SPIのD/Cピン番号を設定  (-1 = disable)
+            cfg.freq_write = 40000000;              // 送信クロック (最大20MHz, 80MHzを整数で割った値に丸められます)
+            cfg.pin_wr = LCD_WR;                    // WR を接続しているピン番号
+            cfg.pin_rd = LCD_RD;                    // RD を接続しているピン番号
+            cfg.pin_rs = LCD_DC;                    // RS(D/C)を接続しているピン番号
+            cfg.pin_d0 = LCD_DATA_0;                // D0を接続しているピン番号
+            cfg.pin_d1 = LCD_DATA_1;                // D1を接続しているピン番号
+            cfg.pin_d2 = LCD_DATA_2;                // D2を接続しているピン番号
+            cfg.pin_d3 = LCD_DATA_3;                // D3を接続しているピン番号
+            cfg.pin_d4 = LCD_DATA_4;                // D4を接続しているピン番号
+            cfg.pin_d5 = LCD_DATA_5;                // D5を接続しているピン番号
+            cfg.pin_d6 = LCD_DATA_6;                // D6を接続しているピン番号
+            cfg.pin_d7 = LCD_DATA_7;                // D7を接続しているピン番号
             _bus_instance.config(cfg);              // 設定値をバスに反映します。
             _panel_instance.setBus(&_bus_instance); // バスをパネルにセットします。
         }
