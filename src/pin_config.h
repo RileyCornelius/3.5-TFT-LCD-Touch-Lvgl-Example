@@ -9,10 +9,8 @@
 #define LCD_RST 10
 #define LCD_DC 9
 #define LCD_BL 21
-#define TS_MOSI LCD_MOSI
-#define TS_MISO LCD_MISO
-#define TS_SCK LCD_SCK
-#define TS_CS 22
+#define TS_SDA SDA
+#define TS_SCL SCL
 #endif
 
 #if CONFIG_IDF_TARGET_ESP32S3
@@ -23,10 +21,8 @@
 #define LCD_RST 17
 #define LCD_DC 16
 #define LCD_BL 18
-#define TS_MOSI LCD_MOSI
-#define TS_MISO LCD_MISO
-#define TS_SCK LCD_SCK
-#define TS_CS 15
+#define TS_SDA SDA
+#define TS_SCL SCL
 #endif
 
 #define BUTTON_NEXT 42
