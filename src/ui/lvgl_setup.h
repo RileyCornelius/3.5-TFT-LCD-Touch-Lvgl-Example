@@ -2,3 +2,4 @@
 
 void lvgl_init();
 void lvgl_handler();
+void benchmark();
